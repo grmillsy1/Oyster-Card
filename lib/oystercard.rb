@@ -22,6 +22,7 @@ class OysterCard
 
   def touch_in(station)
     fail "Card has insufficient balance" if @balance < MINIMUM_BALANCE
+    @journey = Journey.new
     @journeys << {entry_station: station}
     station
   end
@@ -35,5 +36,10 @@ class OysterCard
 
   def deduct amount
     @balance -= amount
+  end
+
+  def fare
+    return 1 if !!@entry_station && !!@exit_station
+    return 6
   end
 end
